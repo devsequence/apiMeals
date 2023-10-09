@@ -35,7 +35,7 @@ const routes = [
         component: Ingredients,
       },
       {
-        path: '/by-ingredient/:ingredient?',
+        path: '/by-ingredient/:ingredient',
         name: 'byIngredient',
         component: MealsByIngredient,
       },
@@ -45,7 +45,7 @@ const routes = [
         component: MealList,
       },
       {
-        path: '/meal/:id?',
+        path: '/meal/:id',
         name: 'mealDetails',
         component: MealDetails,
       }

@@ -8,6 +8,7 @@
   </div>
 </template>
 <script setup>
+
   const { meal } = defineProps({
       meal: {
           required: true,

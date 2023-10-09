@@ -5,26 +5,30 @@
            placeholder="Search for meals" class="border border-indigo-600 outline-0	w-full p-4 h-12">
   </div>
   <div class="flex flex-wrap">
-    <MealItem v-for="meal of meals" :key="meal.idMeal" :meal="meal" />
+    <Meals :meals="meals" />
   </div>
 </template>
 <script setup>
   import {ref, computed, onMounted } from 'vue'
   import { useRoute } from "vue-router";
   import store from "../store";
-  import MealItem from "../components/MealItem.vue";
-
-  const keyword = ref('');
-  const meals = computed(() => store.state.searchedMeals);
+  import Meals from "../components/Meals.vue";
   const route = useRoute();
+  const keyword = ref("");
+  const meals = computed(() => store.state.searchedMeals);
 
   function searchMeals() {
-    store.dispatch('searchMeals', keyword.value)
+      if (keyword.value) {
+          store.dispatch("searchMeals", keyword.value);
+      } else {
+          store.commit("setSearchedMeals", []);
+      }
   }
+
   onMounted(() => {
-      keyword.value = route.params.name;
-      if(keyword.value){
-        searchMeals()
+      keyword.value = route.params.name
+      if (keyword.value) {
+          searchMeals()
       }
   })
 </script>

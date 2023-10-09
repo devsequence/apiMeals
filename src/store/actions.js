@@ -16,7 +16,7 @@ export function searchMealsByLetter({commit}, letter){
 export function searchMealsByIngredient({commit}, ing){
   axiosClient.get(`https://themealdb.com/api/json/v1/1/filter.php?i=${ing}`)
     .then(({ data }) => {
-      commit('setMealsByIngredient', data.meals)
+      commit('setMealsByIngredients', data.meals)
     })
 }
 
