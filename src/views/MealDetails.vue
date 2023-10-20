@@ -1,4 +1,8 @@
 <template>
+  <div v-if="loading" class="bg-gray-100 loader fixed top-0 left-0 right-0 h-screen w-full flex items-center justify-center	">
+    <Preloader  color="orange" scale=".6"/>
+  </div>
+  <div class="container mx-auto my-0">
   <div class="w-2/4 mx-auto p-4">
     <h1 class="text-5xl	font-bold mb-5 text-center">{{ meal.strMeal }}</h1>
     <img :src="meal.strMealThumb" :alt="meal.strMeal" class="mx-auto">
@@ -33,8 +37,10 @@
       {{ meal.strInstructions }}
     </div>
   </div>
+  </div>
 </template>
 <script setup>
+
   import { ref, onMounted } from 'vue'
   import { useRoute }  from 'vue-router'
   import axiosClient from "../axiosClient";
@@ -42,10 +48,15 @@
   const route = useRoute();
 
   const meal = ref({});
+
+  import Preloader from '../components/Preloader.vue'
+  const loading = ref(true);
+
   onMounted(() => {
     axiosClient.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${route.params.id }`)
         .then(({ data }) => {
-          meal.value = data.meals[0] || {}
+          meal.value = data.meals[0] || {};
+            loading.value = false;
       })
   })
 </script>
