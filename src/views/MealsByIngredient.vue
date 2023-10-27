@@ -28,6 +28,7 @@
     onMounted(() => {
         store.dispatch('searchMealsByIngredient', route.params.ingredient);
         loading.value = false;
+        console.log(store.state.mealsByIngredient);
     })
 
 </script>

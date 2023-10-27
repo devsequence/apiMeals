@@ -11,6 +11,7 @@
   </div>
 </template>
 <script setup>
+
   import {ref, computed, onMounted } from 'vue'
   import { useRoute } from "vue-router";
   import store from "../store";
@@ -25,11 +26,11 @@
           store.commit("setSearchedMeals", []);
       }
   }
-
   onMounted(() => {
-      keyword.value = route.params.name
+      keyword.value = route.params.name;
       if (keyword.value) {
           searchMeals()
       }
+
   })
 </script>

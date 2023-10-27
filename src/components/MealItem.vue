@@ -1,7 +1,11 @@
 <template>
-  <div class="w-1/1 sm:w-1/3 md:w-1/4 mb-4 px-2">
+  <div class="w-1/1 sm:w-1/2 md:w-1/3 lg:w-1/4 mb-4 px-2">
     <div class="rounded-lg border border-slate-200	overflow-hidden" :id="meal.idMeal">
-      <router-link :to="{name: 'mealDetails', params: { id: meal.idMeal }}"><img :src="meal.strMealThumb" :alt="meal.strMeal" class="max-h-48 w-full object-cover"></router-link>
+
+      <div class="image  min-h-[192px]">
+        <router-link :to="{name: 'mealDetails', params: { id: meal.idMeal }}"><img :src="meal.strMealThumb" :alt="meal.strMeal" class="max-h-48 w-full object-cover"></router-link>
+      </div>
+
       <h3 class="mx-2 mb-3">{{ meal.strMeal }}</h3>
       <div class="flex mx-2 mb-3">
         <div class="w-1/2">
@@ -10,7 +14,7 @@
         <div class="qtySelector flex  w-1/2">
           <button class="bg-gray-200 mx-2 px-2 py-1 hover:bg-red-500	hover:text-white quantity-btn__sub w-1/3" @click="calcQuantitySub()">-</button>
           <input type="number" class="qtyValue w-1/3 text-center" min="1" :value="valueItem">
-          <button class="bg-gray-200 mx-2 px-2 py-1 hover:bg-red-500	hover:text-white quantity-btn__add w-1/3" @click="valueItem++">+</button>
+          <button class="bg-gray-200 mx-2 px-2 py-1 hover:bg-red-500	hover:text-white quantity-btn__add w-1/3" @click="calcQuantityAdd()">+</button>
         </div>
       </div>
       <a :href="meal.strYoutube" target="_blank" class="inline-flex border rounded-sm border-red-500 p-2	hover:bg-red-500	hover:text-white mx-2 mb-2">YouTube</a>
@@ -24,8 +28,9 @@
   const cardQtys = ref([]);
   const cardMeals = ref([]);
   const valueItem = ref(1);
+  import store from "../store";
   import $ from 'jquery'
-  import { onMounted, ref, computed, watch} from 'vue';
+  import { onMounted, ref, computed, watchEffect} from 'vue';
   const { meal } = defineProps({
       meal: {
           required: true,
@@ -41,16 +46,25 @@
       }
   }
   function calcQuantityAdd() {
-      console.log('plus');
+      valueItem.value++
+      // if(valueItem.value <= 1){}else {
+      //
+      // }
   }
+
   function addToCart(id){
+
       let cart  = localStorage.getItem('cart');
       let qty = valueItem.value;
       // let qty = $('.qtyValue').val() ? $('.qtyValue').val() : 1;
       $('.qtyValue').val(1);
-      let price = id- 52500;
+      let name = meal.strMeal;
+      let mealThumb = meal.strMealThumb;
+      let price = id - 52500;
       let newMeal = [{
               'id': id,
+              'name': name,
+              'img': mealThumb,
               'qty': qty,
               'price' : price,
               'totalPrice' : qty * price
@@ -63,7 +77,6 @@
              if(productInCart.id === id){
                  productInCart.qty = Number(productInCart.qty) + Number(qty);
                  productInCart.totalPrice = Number(productInCart.qty) * Number(price);
-
                  newMeal = null;
              }
           });
@@ -71,6 +84,11 @@
           console.log(cart);
           localStorage.setItem('cart', JSON.stringify(cart));
       }
+      store.commit('setCart', cart);
+      watchEffect(() =>{
+          store.commit('setCart', cart);
+      });
+      valueItem.value = 1;
   }
 </script>
 <style>

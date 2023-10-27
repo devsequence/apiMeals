@@ -10,6 +10,7 @@
         meals: {
             required: true,
             type: Array,
+            error : null
         }
     })
 

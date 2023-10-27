@@ -1,6 +1,15 @@
 export  default {
   searchedMeals: [],
-  mealByLetter : [],
+  searchedAreas: [],
+  mealByLetter: [],
   mealByIngredient : [],
-  ingredient: {}
+  ingredient: {},
+  areasMeal: {},
+  cart: {
+    data: [],
+    error : null
+  },
+  openCart: {
+    openCartNavbar : false
+  }
 }

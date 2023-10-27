@@ -3,13 +3,13 @@
     <Preloader  color="orange" scale=".6"/>
   </div>
   <div class="container mx-auto my-0">
-  <div class="w-2/4 mx-auto p-4">
-    <h1 class="text-5xl	font-bold mb-5 text-center">{{ meal.strMeal }}</h1>
+  <div class="w-4/4 mx-auto p-8">
+    <h1 class="text-5xl	font-bold mb-5 text-left">{{ meal.strMeal }}</h1>
     <img :src="meal.strMealThumb" :alt="meal.strMeal" class="mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-3 text-lg py-2">
-      <div> <strong> Category:</strong> {{ meal.strCategory }}</div>
-      <div> <strong> Area:</strong> {{ meal.strArea }}</div>
-      <div> <strong> Tags:</strong> {{ meal.strTags }}</div>
+      <div><strong> Category:</strong> {{ meal.strCategory }}</div>
+      <div><strong> Area:</strong> {{ meal.strArea }}</div>
+      <div><strong> Tags:</strong> {{ meal.strTags }}</div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2">
       <div>

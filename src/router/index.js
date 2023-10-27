@@ -6,7 +6,9 @@ import MealList from '../views/MealList.vue'
 import MealByName from '../views/MealsByName.vue'
 import MealsByLetter from '../views/MealsByLetter.vue'
 import Ingredients from '../views/Ingredients.vue'
+import MealsArea from '../views/MealsArea.vue'
 import MealsByIngredient from '../views/MealsByIngredient.vue'
+import MealsByArea from '../views/MealsByArea.vue'
 import MealDetails  from '../views/MealDetails.vue'
 
 const routes = [
@@ -38,6 +40,16 @@ const routes = [
         path: '/by-ingredient/:ingredient',
         name: 'byIngredient',
         component: MealsByIngredient,
+      },
+      {
+        path: '/by-areas',
+        name: 'byAreas',
+        component: MealsArea,
+      },
+      {
+        path: '/by-area/:area',
+        name: 'byArea',
+        component: MealsByArea,
       },
       {
         path: '/letter/:letter?',
